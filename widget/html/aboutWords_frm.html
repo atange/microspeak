@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>aboutWords_frm</title>
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/sui.css" />
+		<style>
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
+			.head {
+				position: fixed;
+				bottom: 0;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aui-content">
+			<p class="aui-padded-10">
+				含蓄精妙的言语 精深切要的义理 莞尔一笑之间 往往耐人寻味 发人深省 也许不经意间将会影响您的一生<span class="aui-iconfont aui-icon-message"></span>
+			</p>
+			<p class="aui-padded-10">
+				这里有优美的经典文字，简洁的界面，无需注册，锁定一台设备阅读过的内容将尽量做到不重现，因为缓存和网络原因有时偶尔会重复。任何地方看到好文章可以复制粘贴进行发布，与大家一起分享。所有文字均取材于互联网和个人原创<span class="aui-iconfont aui-icon-message"></span>
+			</p>
+			<p class="aui-padded-10">
+				微信扫一扫，推荐伙伴们下载客户端
+			</p>
+			<ul class="aui-list-view aui-grid-view">
+				<li class="aui-list-view-cell aui-img aui-col-xs-6">
+					<img class="aui-img-object"  id="androidImage" src="../image/android_xs.png">
+					<div class="aui-img-body" id="androidName">
+						<!--安卓Andriod-->
+					</div>
+				</li>
+				<li class="aui-list-view-cell aui-img aui-col-xs-6">
+					<img class="aui-img-object" id="iosImage" src="../image/ios_xs.png">
+					<div class="aui-img-body"id="iosName">
+						<!--苹果IOS-->
+					</div>
+				</li>
+			</ul>
+		</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js" ></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var $header = $api.dom('header');
+			$api.fixIos7Bar($header);
+			var model = api.require('model');
+			var query = api.require('query');
+			model.config({
+				appId : 'A6996809038368',
+				appKey : 'E38693FF-889E-DE2F-FF8E-C72871C8731C',
+				host : 'https://d.apicloud.com'
+			});
+			query.createQuery({
+			}, function(ret, err) {
+				//coding...
+				if (ret && ret.qid) {
+					model.findAll({
+						class : 'QRCode',
+						qid : ret.qid
+					}, function(ret, err) {
+						//            alert(ret[0].image.url)
+						//coding...
+						if (ret) {
+						document.getElementById("androidImage").src = ret[0].image.url
+						document.getElementById("iosImage").src = ret[1].image.url
+						document.getElementById("androidName").innerHTML = ret[0].name
+						document.getElementById("iosName").innerHTML = ret[1].name
+						//       	document.getElementById("QRCodeImage").innerHTML=ret[0].name+"<img  'src='"+ret[0].image+"'/> "
+					}
+					});
+				
+				}else {
+					alert("请连接网络");
+					}
+			});
+		}
+	</script>
+</html>

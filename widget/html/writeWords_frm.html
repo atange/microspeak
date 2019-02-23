@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/sui.css" />
+		<style>
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
+			#header {
+				backgroung: fixed
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aui-content">
+			<form class="aui-input-group">
+				<div class="aui-input-row">
+					<textarea style='resize: none;' textarea rows="5"; placeholder="这一刻的想法..." ;onpaste="return true"; id="content1" ></textarea>
+				</div>
+			</form>
+	<!--	</div>
+		<div class="aui-content">-->
+			<p class="aui-padded-10">
+				用户在社区内的言论(包括但不限于文字，下同)不得违反国家的法律法规。根据《互联网新闻信息服务管理规定》，发表的言论不得含有下列内容：
+				<br>
+				(一)违反宪法确定的基本原则的；
+				<br>
+				(二)危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；
+				<br>
+				(三)损害国家荣誉和利益的；
+				<br>
+				(四)煽动民族仇恨、民族歧视，破坏民族团结的；
+				<br>
+				(五)破坏国家宗教政策，宣扬邪教和封建迷信的；
+				<br>
+				(六)散布谣言，扰乱社会秩序，破坏社会稳定的；
+				<br>
+				(七)散布淫秽、色情、赌博、暴力、恐怖或者教唆犯罪的；
+				<br>
+				(八)侮辱或者诽谤他人，侵害他人合法权益的；
+				<br>
+				(九)煽动非法集会、结社、游行、示威、聚众扰乱社会秩序的；
+				<br>
+				(十)以非法民间组织名义活动的；
+				<br>
+				(十一)含有法律、行政法规禁止的其他内容的。
+				<br>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/jquery1.js" ></script>
+	<script type="text/javascript" src="../script/api.js" ></script>
+	<script type="text/javascript" src="../script/writeWords.js"></script>
+	<script type="text/javascript" src="../script/sui.js"></script>
+	<script type="text/javascript" src="../script/autosize.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script>
+		autosize(document.querySelectorAll('textarea'));
+	</script>
+	<script>
+		function setLocalStroge() {
+			var str = document.getElementById('content1').value;
+			if (1 <= str.length) {
+				$api.setStorage("inputValue", str);
+			}
+		}
+
+		function getLocalStroge() {
+			var inputValue = document.getElementById('content1');
+			inputValue.value = $api.getStorage("inputValue");
+		}
+
+		apiready = function() {
+			$api.fixIos7Bar($(".header"));
+			if (null != $api.getStorage("inputValue")) {
+				getLocalStroge()
+			}
+		};
+	</script>
+</html>

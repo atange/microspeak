@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>index</title>
+   
+      <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <link type="text/css" rel="stylesheet" href="css/aui.css" />
+     <link type="text/css" rel="stylesheet" href="css/sui.css" />
+      
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        #wrap {
+            height: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+          /*background-color: #666666 */
+           
+        }
+        
+        #main {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin-left: 1px; 
+            margin-right: 1px; 
+ 
+        }
+ 
+        #footer {
+            width: 100%;
+            text-align: center;
+          /*  height: 56px;
+            line-height: 55px;
+            background-color: #34495e;*/
+               }
+    </style>
+    
+</head>
+<body>
+
+<div id="wrap">
+<header class="aui-bar aui-bar-nav aui-bar-dark">
+   
+    <a class=" aui-pull-left ">
+        <span class="aui-iconfont aui-icon-vipcard" tapmode="hover" onclicK="openAboutWords_win()"></span>
+    </a>
+    <div class="aui-title">微言笑语</div>
+    <a class="aui-pull-right">
+        <span class="aui-iconfont aui-icon-edit" tapmode="hover" onclicK="openWriteWords_win()"></span>
+    </a>
+</header>
+
+    <div id="main">
+
+    </div>
+    <div id="footer">
+        
+        <div class="aui-content aui-content-padded ">
+      
+        <p><button class="aui-btn sui-btn-primary aui-btn-block"  tapmode="tap-active" onclick="getWordQuery();">再来一个</button></p>
+        
+    </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/wordQuery.js"></script>
+
+<script type="text/javascript">
+    apiready = function () {
+        var $header = $api.dom('header');
+        $api.fixIos7Bar($header);
+        var $body = $api.dom('body');
+        var $footer = $api.byId('footer');
+        var header_h = $api.offset($header).h;
+        var body_h = $api.offset($body).h;
+        var footer_h = $api.offset($footer).h;
+        var rect_h = body_h - header_h - footer_h;
+        
+        api.openFrame({
+	        name: 'words',
+	        url: 'html/words.html',
+	        allowEdit : true,
+	        rect: {
+		        x:0,
+		        y:header_h,
+		        w:'auto',
+		        h:rect_h
+	        
+	        
+				},
+				bounces : true,
+				bgColor : 'rgba(0,0,0,0)',
+				vScrollBarEnabled : true,
+				hScrollBarEnabled : true
+        });
+        
+//      api.openFrameGroup({
+//          name: 'group',
+//          scrollEnabled: false,
+//          rect: {x: 0, y: header_h, w: 'auto', h: rect_h},
+//          index: 0,
+//          frames: [
+//              {
+//                  name: 'words',
+//                  url: 'html/words.html'
+//                  
+//              }
+//              
+//          ]
+//      }, function (ret, err) {
+//      });
+
+    }
+    
+    function getWordQuery(){
+    var wordQuery = 'getWordQuery();';
+api.execScript({
+    name: 'root',
+    frameName: 'words',
+    script: wordQuery
+});
+}
+
+ function openWriteWords_win(){
+        api.openWin({
+            name:'writeWords_win',
+            url: 'html/writeWords_win.html',
+           allowEdit:true,//openWin方法下的allowEdit参数,openFrameGroup没有那个参数，openWin可以
+        })
+    }  
+ function openAboutWords_win(){
+        api.openWin({
+            name:'aboutWords_win',
+            url: 'html/aboutWords_win.html'
+       
+        })
+    }    
+     
+    function closeWin() {
+        api.closeWin({
+
+        })
+    }
+    
+   
+</script>
+</html>
